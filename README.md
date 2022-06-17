@@ -20,7 +20,7 @@
     - Save file: Enter save name in **Save file name** box, click ```Save Level```.
     - Reset level: choose to reset all above value.
 ## Solve level section.
-    - **Min path cost**: the ** minimum amount ** of cost of the path from start to end.
+    - **Min path cost**: the __minimum amount__ of cost of the path from start to end.
     - **Min path steps**: the minimum number of steps from start to end.
     - **Attempted steps**: the number of steps that AI use to find the minimum path.
     - **Level Difficulty**: the value to evaluate the difficulty of level.
