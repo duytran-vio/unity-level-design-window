@@ -1,0 +1,1 @@
+{"levelDataPath":"Assets/Resources/LevelDesign/newGenmap.txt","minPathValue":222,"attemptedSteps":858,"levelDifficulty":0.8212617039680481}

@@ -1,0 +1,1 @@
+{"levelDataPath":"Assets/Resources/LevelDesign/level4.txt","minPathValue":25,"attemptedSteps":27,"levelDifficulty":0.0}
