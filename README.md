@@ -13,7 +13,7 @@
 ## Level Customize tab
     - Size X and Y: are the size of level.
     - Obstacle Percent: the proportion of obstacle cell in level. This value is used for generate random level.
-    - ```Random Level``` button: Generate a random level (guarantee that this level have a path between start and end location).
+    - `Random Level` button: Generate a random level (guarantee that this level have a path between start and end location).
     - Start and End position: choose start and end coordination (can also generate random coordinations via ```Random Start or End``` button).
     - Change default cell: change default cell which is used for extend the level.
     - Cell options: are used for editing the level.
