@@ -139,6 +139,8 @@ public class PathfindingAI
     static public void GetMinPath(){
         if (minPathValue == -1) return;
         Point u = end;
+        minPath[nMinPath] = new Point(u.x, u.y);
+        nMinPath++;
         while(u.x != start.x || u.y != start.y){
             // Debug.Log("d["+u.x+","+u.y+"] = "+d[u.x,u.y] + ", " + cost[u.x,u.y]);
             var x = trace[u.x, u.y].x;

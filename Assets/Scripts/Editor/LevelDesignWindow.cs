@@ -73,8 +73,8 @@ public class LevelDesignWindow : EditorWindow
             {"O", "Assets/Resources/moveable.prefab"},
             {"R", "Assets/Resources/river.prefab"},
             {"A", "Assets/Resources/sand.prefab"},
-            {"S", "Assets/Resources/player.prefab"},
-            {"T", "Assets/Resources/player.prefab"},
+            {"S", "Assets/Resources/player_ground.prefab"},
+            {"T", "Assets/Resources/player_ground.prefab"},
             {"o", "Assets/Resources/attempt.prefab"},
             {"*", "Assets/Resources/minpath.prefab"}
         };

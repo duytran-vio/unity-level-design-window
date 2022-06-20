@@ -1,0 +1,1 @@
+{"levelDataPath":"Assets/Resources/LevelDesign/hard_5.txt","minPathValue":126,"attemptedSteps":667,"levelDifficulty":0.8721804618835449}

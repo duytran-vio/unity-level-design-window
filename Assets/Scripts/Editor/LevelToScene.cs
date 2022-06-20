@@ -10,6 +10,18 @@ public class LevelToScene: EditorWindow
     static GameObject map;
 
     static string [,] a;
+    
+    public struct Point{
+        public int x;
+        public int y;
+
+        public Point(int _x, int _y){
+            x = _x;
+            y = _y;
+        }
+    };
+
+    static Point start, end;
 
     static int n, m ;
 
@@ -17,6 +29,8 @@ public class LevelToScene: EditorWindow
     static Dictionary<string, GameObject> obs_prefab;
 
     static float offsetX, offsetY;
+
+    static GameObject player;
 
     static string wallAssetPath = "Assets/Resources/wall.prefab";
 
@@ -52,13 +66,21 @@ public class LevelToScene: EditorWindow
     static public void addData(int _n, int _m, string [,] _a, Dictionary<string, string> _moveable_cell, Dictionary<string, string> _obs_cell){
 
         offsetX = 0;
-        offsetY = 1;
+        offsetY = 0;
         n = _m;
         m = _n;
         a = new string [n,m];
         for(int i = 0; i < _n; i++){
             for(int j = 0; j < _m; j++){
                 a[j,_n - i - 1] = _a[i, j];
+                if (a[j,_n - i - 1] == "S"){
+                    start.x = j;
+                    start.y = _n - i - 1;
+                }
+                if (a[j,_n - i - 1] == "T"){
+                    end.x = j;
+                    end.y = _n - i - 1;
+                }
             }
         }
         LoadPrefab(_moveable_cell, _obs_cell);
@@ -84,6 +106,36 @@ public class LevelToScene: EditorWindow
                 spawnCube(a[i,j], i, j);
             }
         }
+        spawnPlayer(start.x, start.y);
+    }
+
+    static void spawnPlayer(int x, int y){
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null){
+            DestroyImmediate(player);
+        }
+        string player_path = "Assets/Resources/Player.prefab";
+        GameObject player_prefab = AssetDatabase.LoadAssetAtPath<GameObject>(player_path);
+        player = Instantiate(player_prefab, new Vector3(x + offsetX, 1.5f, y + offsetY), Quaternion.identity);
+        player.tag = "Player";
+        player.name = "Player";
+        LevelSolution levelSolution = player.GetComponent<PlayerController>().levelSolution;
+        levelSolution.nMinPath = PathfindingAI.nMinPath;
+        levelSolution.x = new int[levelSolution.nMinPath];
+        levelSolution.y = new int[levelSolution.nMinPath];
+        for(int i = 0; i < levelSolution.nMinPath; i++){
+            levelSolution.x[i] = PathfindingAI.minPath[i].y;
+            levelSolution.y[i] = m - PathfindingAI.minPath[i].x - 1;
+        }
+
+        // levelSolution.minPath = new LevelSolution.Point[levelSolution.nMinPath];
+        // for(int i = 0; i < levelSolution.nMinPath; i++){
+        //     levelSolution.minPath[i].x = PathfindingAI.minPath[i].x;
+        //     levelSolution.minPath[i].y = PathfindingAI.minPath[i].y;
+        // }
+        // levelSolution.test = new LevelSolution.Point();
+        // levelSolution.test.x = 2;
+        // levelSolution.test.y = 2;
     }
 
     static void spawnMap(){
@@ -117,15 +169,19 @@ public class LevelToScene: EditorWindow
     }
 
     static void spawnMoveableCube(string cell_value, int x, int y){
-        GameObject cube = Instantiate(moveable_prefab[cell_value], new Vector3(x + offsetX, y + offsetY, 0), Quaternion.identity);
+        GameObject cube = Instantiate(moveable_prefab[cell_value], new Vector3(x + offsetX, 0, y + offsetY), Quaternion.identity);
         cube.transform.parent = map.transform;
     }
 
     static void spawnObstacleCube(string cell_value, int x, int y){
-        GameObject cube = Instantiate(obs_prefab[cell_value], new Vector3(x + offsetX, y + offsetY, 0), Quaternion.identity);
-        GameObject cube2 = Instantiate(obs_prefab[cell_value], new Vector3(x + offsetX, y + offsetY, -1), Quaternion.identity);
+        GameObject cube = Instantiate(obs_prefab[cell_value], new Vector3(x + offsetX,  0, y + offsetY), Quaternion.identity);
+        GameObject cube2 = Instantiate(obs_prefab[cell_value], new Vector3(x + offsetX, 1, y + offsetY), Quaternion.identity);
         cube.transform.parent = map.transform;
         cube2.transform.parent = map.transform;
+    }
+
+    void Update(){
+        
     }
     
 }
